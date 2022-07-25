@@ -1,5 +1,7 @@
 package com.honker.dimensionalvacuumstroage;
 
+import com.honker.dimensionalvacuumstroage.init.BlockInit;
+import com.honker.dimensionalvacuumstroage.init.ItemInit;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.BlockItem;
@@ -27,37 +29,32 @@ import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(DVSMain.MODID)
-public class DVSMain
-{
-    // Define mod id in a common place for everything to reference
+public class DVSMain {
     public static final String MODID = "dimensionalvacuumstroage";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public DVSMain()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        ItemInit.register(modEventBus);
+        BlockInit.register(modEventBus);
 
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        // Some common setup code
+        LOGGER.info("[DVS] Setting up...");
+        LOGGER.info("[DVS] Smiley >> {}", ItemInit.SMILE.getId().toString());
     }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
         // Do something when the server starts
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModEvents
     {
