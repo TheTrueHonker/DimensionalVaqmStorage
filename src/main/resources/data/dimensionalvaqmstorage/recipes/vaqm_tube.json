@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dimensionalvaqmstorage",
+  "pattern": [
+    "ivi"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "v": {
+      "item": "dimensionalvaqmstorage:vaqm_shard"
+    }
+  },
+  "result": {
+    "item": "dimensionalvaqmstorage:vaqm_tube",
+    "count": 1
+  }
+}
