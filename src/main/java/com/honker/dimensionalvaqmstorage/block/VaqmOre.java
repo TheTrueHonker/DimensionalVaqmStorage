@@ -8,7 +8,7 @@ import net.minecraft.world.level.material.Material;
 public class VaqmOre extends OreBlock {
     public VaqmOre() {
         super(BlockBehaviour.Properties
-                .of(Material.STONE)
+                .of(Material.HEAVY_METAL)
                 .strength(2f)
                 .requiresCorrectToolForDrops(),
                 UniformInt.of(3,5));
