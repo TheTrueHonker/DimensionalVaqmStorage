@@ -17,7 +17,7 @@
               "add": false
             }
           ],
-          "name": "dimensionalvacuumstorage:vaqm_shard"
+          "name": "dimensionalvaqmstorage:vaqm_shard"
         }
       ]
     }

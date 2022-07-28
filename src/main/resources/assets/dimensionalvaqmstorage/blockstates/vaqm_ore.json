@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "dimensionalvaqmstorage:block/vaqm_ore"
+    }
+  }
+}

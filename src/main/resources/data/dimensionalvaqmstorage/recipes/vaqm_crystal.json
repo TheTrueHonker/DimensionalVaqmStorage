@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "dimensionalvacuumstorage",
+  "group": "dimensionalvaqmstorage",
   "pattern": [
     "sss",
     "sss",
@@ -8,11 +8,11 @@
   ],
   "key": {
     "s": {
-      "item": "dimensionalvacuumstorage:vaqm_shard"
+      "item": "dimensionalvaqmstorage:vaqm_shard"
     }
   },
   "result": {
-    "item": "dimensionalvacuumstorage:vaqm_crystal",
+    "item": "dimensionalvaqmstorage:vaqm_crystal",
     "count": 1
   }
 }

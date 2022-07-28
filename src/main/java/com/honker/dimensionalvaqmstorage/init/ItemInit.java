@@ -22,6 +22,7 @@ public final class ItemInit {
         VAQM_CRYSTAL = ITEMS.register("vaqm_crystal", VaqmCrystal::new);
 
         registerBlockItemFor(BlockInit.VAQM_ORE);
+        registerBlockItemFor(BlockInit.VAQM_TUBE);
     }
 
     private static <T extends Block> RegistryObject<BlockItem> registerBlockItemFor(RegistryObject<T> block) {
