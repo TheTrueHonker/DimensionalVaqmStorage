@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "dimensionalvaqmstorage:vaqm_shard"
+    },
+    "title": "Obtain a vaqm shard",
+    "description": "You found the strange vaqm shard",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "dimensionalvaqmstorage:vaqm_shard",
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "dimensionalvaqmstorage:vaqm_crystal"
+    ]
+  }
+}
