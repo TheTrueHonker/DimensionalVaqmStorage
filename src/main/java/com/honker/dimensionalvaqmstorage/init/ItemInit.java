@@ -1,6 +1,7 @@
 package com.honker.dimensionalvaqmstorage.init;
 
 import com.honker.dimensionalvaqmstorage.DVS;
+import com.honker.dimensionalvaqmstorage.item.StorageCan;
 import com.honker.dimensionalvaqmstorage.item.VaqmCrystal;
 import com.honker.dimensionalvaqmstorage.item.VaqmShard;
 import net.minecraft.world.item.BlockItem;
@@ -16,10 +17,12 @@ public final class ItemInit {
 
     public static final RegistryObject<VaqmShard> VAQM_SHARD;
     public static final RegistryObject<VaqmCrystal> VAQM_CRYSTAL;
+    public static final RegistryObject<StorageCan> STORAGE_CAN;
 
     static {
         VAQM_SHARD = ITEMS.register("vaqm_shard", VaqmShard::new);
         VAQM_CRYSTAL = ITEMS.register("vaqm_crystal", VaqmCrystal::new);
+        STORAGE_CAN = ITEMS.register("storage_can", StorageCan::new);
 
         registerBlockItemFor(BlockInit.VAQM_ORE);
         registerBlockItemFor(BlockInit.VAQM_TUBE);
