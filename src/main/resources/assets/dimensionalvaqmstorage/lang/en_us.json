@@ -2,6 +2,7 @@
   "itemGroup.dimensionalvaqmstorage": "Dimensional Vaqm Storage",
   "item.dimensionalvaqmstorage.vaqm_crystal": "Vaqm Crystal",
   "item.dimensionalvaqmstorage.vaqm_shard": "Vaqm Shard",
+  "item.dimensionalvaqmstorage.storage_can": "Storage Can",
   "block.dimensionalvaqmstorage.vaqm_ore": "Vaqm Ore",
   "block.dimensionalvaqmstorage.vaqm_tube": "Vaqm Tube"
 }
