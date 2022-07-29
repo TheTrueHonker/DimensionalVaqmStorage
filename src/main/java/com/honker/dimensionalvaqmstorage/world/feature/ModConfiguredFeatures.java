@@ -17,6 +17,5 @@ public class ModConfiguredFeatures {
     );
 
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> VAQM_ORE = FeatureUtils.register(
-            "vaqm_ore",
-            Feature.ORE, new OreConfiguration(OVERWORLD_VAQM_ORES, 9));
+            "vaqm_ore", Feature.ORE, new OreConfiguration(OVERWORLD_VAQM_ORES, 9));
 }

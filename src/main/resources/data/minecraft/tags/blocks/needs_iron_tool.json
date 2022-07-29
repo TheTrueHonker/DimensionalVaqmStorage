@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "dimensionalvaqmstorage:vaqm_ore",
-    "dimensionalvaqmstorage:vaqm_pipe"
+    "dimensionalvaqmstorage:vaqm_tube"
   ]
 }
