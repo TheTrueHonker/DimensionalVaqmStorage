@@ -13,12 +13,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import static com.honker.dimensionalvaqmstorage.util.EnumUtils.DirectionsNone;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class PipeBlock extends Block {
     private static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final DirectionProperty WALL_TO_ANCHOR = DirectionProperty.create("wall_to_anchor");
+    private static final EnumProperty<DirectionsNone> WALL_TO_ANCHOR = EnumProperty.create("wall_to_anchor", DirectionsNone.class);
     private static final BooleanProperty PIPE_CONNECTION_UP = BooleanProperty.create("pipe_connection_up");
     private static final BooleanProperty PIPE_CONNECTION_DOWN = BooleanProperty.create("pipe_connection_down");
     private static final BooleanProperty PIPE_CONNECTION_EAST = BooleanProperty.create("pipe_connection_east");
@@ -33,7 +35,7 @@ public class PipeBlock extends Block {
                 .noOcclusion());
         this.registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(WALL_TO_ANCHOR, Direction.NORTH)
+                .setValue(WALL_TO_ANCHOR, DirectionsNone.NONE)
                 .setValue(PIPE_CONNECTION_UP, false)
                 .setValue(PIPE_CONNECTION_DOWN, false)
                 .setValue(PIPE_CONNECTION_EAST, false)
@@ -77,16 +79,23 @@ public class PipeBlock extends Block {
         boolean blockEast = nonNetworkBlockFound(world, pos, Direction.EAST);
         boolean blockDown = nonNetworkBlockFound(world,pos,Direction.DOWN);
         boolean blockWest = nonNetworkBlockFound(world, pos, Direction.WEST);
-        Direction direction = Direction.NORTH; // North = None
+        boolean blockNorth = nonNetworkBlockFound(world, pos, Direction.NORTH);
+        boolean blockSouth = nonNetworkBlockFound(world, pos, Direction.SOUTH);
 
+        DirectionsNone direction = DirectionsNone.NONE;
         if(blockUp)
-            direction = Direction.UP;
+            direction = DirectionsNone.UP;
         else if(blockEast)
-            direction = Direction.EAST;
+            direction = DirectionsNone.EAST;
         else if(blockWest)
-            direction = Direction.WEST;
+            direction = DirectionsNone.WEST;
+        else if(blockNorth)
+            direction = DirectionsNone.NORTH;
+        else if(blockSouth)
+            direction = DirectionsNone.SOUTH;
         else if(blockDown)
-            direction = Direction.DOWN;
+            direction = DirectionsNone.DOWN;
+
 
         boolean[] nodeConnections = new boolean[6];
         nodeConnections[0] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.UP);
