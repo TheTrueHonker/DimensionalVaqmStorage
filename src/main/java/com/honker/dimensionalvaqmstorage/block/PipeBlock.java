@@ -11,11 +11,21 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 public class PipeBlock extends Block {
     private static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final DirectionProperty NEXT_BLOCK = DirectionProperty.create("nextblock");
+    private static final DirectionProperty WALL_TO_ANCHOR = DirectionProperty.create("wall_to_anchor");
+    private static final BooleanProperty PIPE_CONNECTION_UP = BooleanProperty.create("pipe_connection_up");
+    private static final BooleanProperty PIPE_CONNECTION_DOWN = BooleanProperty.create("pipe_connection_down");
+    private static final BooleanProperty PIPE_CONNECTION_EAST = BooleanProperty.create("pipe_connection_east");
+    private static final BooleanProperty PIPE_CONNECTION_WEST = BooleanProperty.create("pipe_connection_west");
+    private static final BooleanProperty PIPE_CONNECTION_NORTH = BooleanProperty.create("pipe_connection_north");
+    private static final BooleanProperty PIPE_CONNECTION_SOUTH = BooleanProperty.create("pipe_connection_south");
+
 
     public PipeBlock() {
         super(BlockBehaviour.Properties
@@ -23,11 +33,18 @@ public class PipeBlock extends Block {
                 .noOcclusion());
         this.registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(NEXT_BLOCK, Direction.NORTH));
+                .setValue(WALL_TO_ANCHOR, Direction.NORTH)
+                .setValue(PIPE_CONNECTION_UP, false)
+                .setValue(PIPE_CONNECTION_DOWN, false)
+                .setValue(PIPE_CONNECTION_EAST, false)
+                .setValue(PIPE_CONNECTION_WEST, false)
+                .setValue(PIPE_CONNECTION_NORTH, false)
+                .setValue(PIPE_CONNECTION_SOUTH, false));
     }
 
     /* FACING */
     @Override
+    @ParametersAreNonnullByDefault
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return getState(pContext);
     }
@@ -35,18 +52,20 @@ public class PipeBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
-        pBuilder.add(NEXT_BLOCK);
+        pBuilder.add(WALL_TO_ANCHOR);
+        pBuilder.add(PIPE_CONNECTION_UP);
+        pBuilder.add(PIPE_CONNECTION_DOWN);
+        pBuilder.add(PIPE_CONNECTION_EAST);
+        pBuilder.add(PIPE_CONNECTION_WEST);
+        pBuilder.add(PIPE_CONNECTION_NORTH);
+        pBuilder.add(PIPE_CONNECTION_SOUTH);
     }
 
     private boolean nonNetworkBlockFound(LevelAccessor level, BlockPos pos, Direction direction) {
         BlockState blockState = level.getBlockState(pos.relative(direction));
-        if (blockState == null)
-            return false;
         if(blockState.isAir())
             return false;
-        if (!NetworkingUtils.IsNetworkingNode(blockState.getBlock()))
-            return true;
-        return false;
+        return !NetworkingUtils.IsNetworkingNode(blockState.getBlock());
     }
 
     private BlockState getState(BlockPlaceContext pContext) {
@@ -69,8 +88,23 @@ public class PipeBlock extends Block {
         else if(blockDown)
             direction = Direction.DOWN;
 
+        boolean[] nodeConnections = new boolean[6];
+        nodeConnections[0] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.UP);
+        nodeConnections[1] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.DOWN);
+        nodeConnections[2] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.EAST);
+        nodeConnections[3] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.WEST);
+        nodeConnections[4] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.NORTH);
+        nodeConnections[5] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.SOUTH);
+
         return state
                 .setValue(FACING, pContext.getNearestLookingDirection().getOpposite())
-                .setValue(NEXT_BLOCK, direction);
+                .setValue(WALL_TO_ANCHOR, direction)
+                .setValue(PIPE_CONNECTION_UP, nodeConnections[0])
+                .setValue(PIPE_CONNECTION_DOWN, nodeConnections[1])
+                .setValue(PIPE_CONNECTION_EAST, nodeConnections[2])
+                .setValue(PIPE_CONNECTION_WEST, nodeConnections[3])
+                .setValue(PIPE_CONNECTION_NORTH, nodeConnections[4])
+                .setValue(PIPE_CONNECTION_SOUTH, nodeConnections[5]);
+
     }
 }
