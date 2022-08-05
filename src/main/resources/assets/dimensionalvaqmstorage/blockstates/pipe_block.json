@@ -1,28 +1,62 @@
 {
-  "variants": {
-    "facing=east": {
-      "model": "dimensionalvaqmstorage:block/pipe",
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "dimensionalvaqmstorage:block/pipeblock"
+      }
     },
-    "facing=north": {
-      "model": "dimensionalvaqmstorage:block/pipe",
-      "y": 90
+    {
+      "when": {
+        "north": true
+      },
+      "apply": {
+        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_north"
+      }
     },
-    "facing=south": {
-      "model": "dimensionalvaqmstorage:block/pipe",
-      "y": 180
+    {
+      "when": {
+        "east": true
+      },
+      "apply": {
+        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_east",
+        "y": 90
+      }
     },
-    "facing=west": {
-      "model": "dimensionalvaqmstorage:block/pipe",
-      "y": 270
+    {
+      "when": {
+        "south": true
+      },
+      "apply": {
+        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_south",
+        "x": 180
+      }
     },
-    "facing=up": {
-      "model": "dimensionalvaqmstorage:block/pipe",
-      "x": 270
+    {
+      "when": {
+        "west": true
+      },
+      "apply": {
+        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_west",
+        "y": 270
+      }
     },
-    "facing=down": {
-      "model": "dimensionalvaqmstorage:block/pipe",
-      "x": 90
+    {
+      "when": {
+        "up": true
+      },
+      "apply": {
+        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_up",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": true
+      },
+      "apply": {
+        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_down",
+        "x": 90
+      }
     }
-  }
+  ]
 }
