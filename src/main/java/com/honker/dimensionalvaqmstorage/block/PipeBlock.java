@@ -4,7 +4,9 @@ import com.honker.dimensionalvaqmstorage.util.NetworkingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -48,7 +50,8 @@ public class PipeBlock extends Block {
     @Override
     @ParametersAreNonnullByDefault
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return getState(pContext);
+        return getState(defaultBlockState(), pContext.getLevel(), pContext.getClickedPos())
+                .setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
     }
 
     @Override
@@ -63,6 +66,13 @@ public class PipeBlock extends Block {
         pBuilder.add(PIPE_CONNECTION_SOUTH);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+        pLevel.setBlockAndUpdate(pPos, getState(pState, pLevel, pPos));
+    }
+
     private boolean nonNetworkBlockFound(LevelAccessor level, BlockPos pos, Direction direction) {
         BlockState blockState = level.getBlockState(pos.relative(direction));
         if(blockState.isAir())
@@ -70,11 +80,7 @@ public class PipeBlock extends Block {
         return !NetworkingUtils.IsNetworkingNode(blockState.getBlock());
     }
 
-    private BlockState getState(BlockPlaceContext pContext) {
-        BlockState state = defaultBlockState();
-        LevelAccessor world = pContext.getLevel();
-        BlockPos pos = pContext.getClickedPos();
-
+    private BlockState getState(BlockState state, LevelAccessor world, BlockPos pos) {
         boolean blockUp = nonNetworkBlockFound(world, pos, Direction.UP);
         boolean blockEast = nonNetworkBlockFound(world, pos, Direction.EAST);
         boolean blockDown = nonNetworkBlockFound(world,pos,Direction.DOWN);
@@ -106,7 +112,6 @@ public class PipeBlock extends Block {
         nodeConnections[5] = NetworkingUtils.NodeConnectionFound(world, pos, Direction.SOUTH);
 
         return state
-                .setValue(FACING, pContext.getNearestLookingDirection().getOpposite())
                 .setValue(WALL_TO_ANCHOR, direction)
                 .setValue(PIPE_CONNECTION_UP, nodeConnections[0])
                 .setValue(PIPE_CONNECTION_DOWN, nodeConnections[1])
