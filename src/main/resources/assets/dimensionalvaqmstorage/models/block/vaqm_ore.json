@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "dimensionalvaqmstorage:blocks/vaqm_ore"
+  }
+}

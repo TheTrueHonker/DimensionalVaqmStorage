@@ -7,54 +7,54 @@
     },
     {
       "when": {
-        "north": true
+        "pipe_connection_north": true
       },
       "apply": {
-        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_north"
+        "model": "dimensionalvaqmstorage:block/pipe_connection_north"
       }
     },
     {
       "when": {
-        "east": true
+        "pipe_connection_east": true
       },
       "apply": {
-        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_east",
+        "model": "dimensionalvaqmstorage:block/pipe_connection_east",
         "y": 90
       }
     },
     {
       "when": {
-        "south": true
+        "pipe_connection_south": true
       },
       "apply": {
-        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_south",
+        "model": "dimensionalvaqmstorage:block/pipe_connection_south",
         "x": 180
       }
     },
     {
       "when": {
-        "west": true
+        "pipe_connection_west": true
       },
       "apply": {
-        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_west",
+        "model": "dimensionalvaqmstorage:block/pipe_connection_west",
         "y": 270
       }
     },
     {
       "when": {
-        "up": true
+        "pipe_connection_up": true
       },
       "apply": {
-        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_up",
+        "model": "dimensionalvaqmstorage:block/pipe_connection_up",
         "x": 270
       }
     },
     {
       "when": {
-        "down": true
+        "pipe_connection_down": true
       },
       "apply": {
-        "model": "dimensionalvaqmstorage:blocks/machines/pipe_connection_down",
+        "model": "dimensionalvaqmstorage:block/pipe_connection_down",
         "x": 90
       }
     }
