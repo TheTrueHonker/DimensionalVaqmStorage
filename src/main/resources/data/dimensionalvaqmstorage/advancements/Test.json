@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "dimensionalvaqmstorage:block/vaqm_ore"
+    },
+    "title": "Funny ME Joke",
+    "description": "Mining Vaqm Ore",
+    "background": "Test",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "Test": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dimensionalvaqmstorage:block/vaqm_ore"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
