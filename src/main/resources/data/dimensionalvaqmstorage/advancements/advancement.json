@@ -6,13 +6,10 @@
     "title": "Funny ME Joke",
     "description": "Mining Vaqm Ore",
     "background": "Test",
-    "frame": "task",
-    "show_toast": false,
-    "announce_to_chat": true,
-    "hidden": false
   },
+  "parent": "minecraft:adventure/bullseye",
   "criteria": {
-    "Test": {
+    "First": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
